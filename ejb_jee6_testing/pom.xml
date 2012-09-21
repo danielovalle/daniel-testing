@@ -1,0 +1,168 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>oving</groupId>
+	<artifactId>ejb_jee6_testing</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>ejb</packaging>
+
+	<name>ejb_jee6_testing</name>
+
+	<properties>
+		<!-- Explicitly declaring the source encoding eliminates the following 
+			message: -->
+		<!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered 
+			resources, i.e. build is platform dependent! -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
+
+		<!-- JBoss dependency versions -->
+		<jboss.as.plugin.version>7.1.1.Final</jboss.as.plugin.version>
+		<jboss.javaee6.spec.version>3.0.1.Final</jboss.javaee6.spec.version>
+
+		<!-- Glassfish related properties -->
+		<glassfish.home>/home/daniel/glassfish3</glassfish.home>
+		<domain.username>admin</domain.username>
+		<domain.password>adminadmin</domain.password>
+		<test.int.skip>1</test.int.skip>
+
+		<!-- other plugin versions -->
+		<compiler.plugin.version>2.3.1</compiler.plugin.version>
+		<ejb.plugin.version>2.3</ejb.plugin.version>
+
+		<!-- maven-compiler-plugin -->
+		<maven.compiler.target>1.6</maven.compiler.target>
+		<maven.compiler.source>1.6</maven.compiler.source>
+	</properties>
+
+	<pluginRepositories>
+
+		<pluginRepository>
+			<id>maven.java.net</id>
+			<name>Java.net Maven2 Repository</name>
+			<url>http://download.java.net/maven/2</url>
+		</pluginRepository>
+
+	</pluginRepositories>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>6.0</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.as</groupId>
+			<artifactId>jboss-as-ejb-client-bom</artifactId>
+			<version>${jboss.as.plugin.version}</version>
+			<type>pom</type>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8.1</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.1.1</version>
+			<scope>provided</scope>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+					<compilerArguments>
+						<endorseddirs>${endorsed.dir}</endorseddirs>
+					</compilerArguments>
+				</configuration>
+			</plugin>
+
+			<!-- JBoss AS plugin to deploy the application -->
+			<plugin>
+				<groupId>org.jboss.as.plugins</groupId>
+				<artifactId>jboss-as-maven-plugin</artifactId>
+				<version>${jboss.as.plugin.version}</version>
+				<configuration>
+					<filename>${project.build.finalName}.jar</filename>
+					<name>${project.artifactId}</name>
+
+					<!-- ONLY for remote deployment -->
+					<!-- <hostname>192.168.59.130</hostname> <port>9999</port> <username>dovalle</username> 
+						<password>adminadmin</password> -->
+				</configuration>
+			</plugin>
+
+			<!-- Glassfish AS plugin to deploy the application -->
+			<plugin>
+				<groupId>org.glassfish.maven.plugin</groupId>
+				<artifactId>maven-glassfish-plugin</artifactId>
+				<version>2.1</version>
+				<configuration>
+					<glassfishDirectory>${glassfish.home}</glassfishDirectory>
+					<user>${domain.username}</user>
+					<adminPassword>${domain.password}</adminPassword>
+					<autoCreate>true</autoCreate>
+					<debug>true</debug>
+					<echo>false</echo>
+					<terse>true</terse>
+					<skip>${test.int.skip}</skip>
+					<domain>
+						<name>${project.artifactId}</name>
+						<adminPort>4848</adminPort>
+						<httpPort>8080</httpPort>
+						<httpsPort>8443</httpsPort>
+						<iiopPort>3700</iiopPort>
+						<jmsPort>7676</jmsPort>
+						<reuse>false</reuse>
+					</domain>
+				</configuration>
+			</plugin>
+
+			<!-- skip tests -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.12.3</version>
+				<configuration>
+					<skipTests>true</skipTests>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-ejb-plugin</artifactId>
+				<version>2.3</version>
+				<configuration>
+					<ejbVersion>3.1</ejbVersion>
+					<generateClient>true</generateClient>
+				</configuration>
+			</plugin>
+
+			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-dependency-plugin</artifactId> 
+				<version>2.5</version> <executions> <execution> <phase>validate</phase> <goals> 
+				<goal>copy</goal> </goals> <configuration> <outputDirectory>${endorsed.dir}</outputDirectory> 
+				<silent>true</silent> <artifactItems> <artifactItem> <groupId>javax</groupId> 
+				<artifactId>javaee-endorsed-api</artifactId> <version>6.0</version> <type>jar</type> 
+				</artifactItem> </artifactItems> </configuration> </execution> </executions> 
+				</plugin> -->
+		</plugins>
+	</build>
+
+</project>
