@@ -8,8 +8,8 @@ import javax.ejb.Singleton;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Session Bean implementation class LoggerFactory
@@ -17,7 +17,7 @@ import org.apache.commons.logging.LogFactory;
 @Singleton
 public class LoggerFactoryBean {
 
-	private Log log = LogFactory.getLog(LoggerFactoryBean.class);
+	private Logger log = LoggerFactory.getLogger(LoggerFactoryBean.class);
 	private String creationDate;
 
 	/**
@@ -47,10 +47,10 @@ public class LoggerFactoryBean {
 	}
 
 	@Produces
-	Log createLogger(InjectionPoint injectionPoint) {
+	Logger createLogger(InjectionPoint injectionPoint) {
 		String name = injectionPoint.getMember().getDeclaringClass().getName();
 		log.debug("creating Log instance for injecting into " + name);
-		return LogFactory.getLog(name);
+		return LoggerFactory.getLogger(name);
 	}
 
 }

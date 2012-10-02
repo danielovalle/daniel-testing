@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+	version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
+	<persistence-unit name="mongo" transaction-type="RESOURCE_LOCAL">
+
+		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+
+		<mapping-file>META-INF/orm.xml</mapping-file>
+
+
+		<class>model.Order</class>
+		<class>model.OrderLine</class>
+		<class>model.Address</class>
+		<class>model.Customer</class>
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+
+		<properties>
+
+			<!-- EclipseLink properties -->
+			<property name="eclipselink.target-database"
+				value="org.eclipse.persistence.nosql.adapters.mongo.MongoPlatform" />
+			<property name="eclipselink.nosql.connection-spec"
+				value="org.eclipse.persistence.nosql.adapters.mongo.MongoConnectionSpec" />
+			<property name="eclipselink.nosql.property.mongo.port"
+				value="27017" />
+			<property name="eclipselink.nosql.property.mongo.host"
+				value="localhost" />
+			<property name="eclipselink.nosql.property.mongo.db" value="mydb" />
+			<property name="eclipselink.logging.level" value="FINEST" />
+			<property name="eclipselink.logging.timestamp" value="false" />
+			<property name="eclipselink.logging.session" value="false" />
+			<property name="eclipselink.logging.thread" value="false" />
+			<property name="eclipselink.weaving" value="static" />
+
+		</properties>
+
+	</persistence-unit>
+
+</persistence>

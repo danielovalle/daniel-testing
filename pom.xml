@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>oving</groupId>
+	<artifactId>daniel_testing</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<name>daniel_testing</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<!-- Explicitly declaring the source encoding eliminates the following 
+			message: -->
+		<!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered 
+			resources, i.e. build is platform dependent! -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+		<!-- SLF4J Logging -->
+		<slf4j.version>1.6.6</slf4j.version>
+		<logback.version>1.0.7</logback.version>
+
+		<!-- junit testing -->
+		<junit.version>4.10</junit.version>
+		<arquillian.version>1.0.2.Final</arquillian.version>
+
+		<!-- JEE related -->
+		<jee6.spec.version>6.0</jee6.spec.version>
+
+		<!-- Glassfish as related properties -->
+		<glassfish.as.home>/home/daniel/glassfish3</glassfish.as.home>
+		<glassfish.as.domain.username>admin</glassfish.as.domain.username>
+		<glassfish.as.domain.password>adminadmin</glassfish.as.domain.password>
+		<glassfish.as.version>3.1.2</glassfish.as.version>
+		<glassfish.as.plugin.version>2.1</glassfish.as.plugin.version>
+		<test.int.skip>1</test.int.skip>
+
+		<!-- jboss as related properties -->
+		<jboss.as.admin.username>dovalle</jboss.as.admin.username>
+		<jboss.as.admin.password>adminadmin</jboss.as.admin.password>
+		<!-- <jboss.as.hostname>192.168.59.131</jboss.as.hostname> -->
+		<jboss.as.remote.port>9999</jboss.as.remote.port>
+		<jboss.as.plugin.version>7.1.1.Final</jboss.as.plugin.version>
+		<jboss.javaee6.spec.version>3.0.1.Final</jboss.javaee6.spec.version>
+
+		<!-- MAVEN plugin versions -->
+		<compiler.plugin.version>2.5.1</compiler.plugin.version>
+		<compiler.plugin.target>1.6</compiler.plugin.target>
+		<compiler.plugin.source>1.6</compiler.plugin.source>
+		<surefire.plugin.version>2.12.3</surefire.plugin.version>
+		<ejb.plugin.version>2.3</ejb.plugin.version>
+		<ejb.plugin.version>2.3</ejb.plugin.version>
+		<surefire.plugin.version>2.12.3</surefire.plugin.version>
+		<properties.plugin.version>1.0-alpha-2</properties.plugin.version>
+
+		<!-- mongodb libraries -->
+		<mongodb.java.version>2.9.1</mongodb.java.version>
+		<morphia.version>0.99</morphia.version>
+
+		<!-- EclipseLink related -->
+		<eclipselink.version>2.4.0</eclipselink.version>
+
+		<!-- Apache Camel EIA framework -->
+		<camel.version>2.10.1</camel.version>
+
+	</properties>
+
+	<repositories>
+
+		<repository>
+			<id>JBOSS_NEXUS</id>
+			<url>http://repository.jboss.org/nexus/content/groups/public</url>
+		</repository>
+
+		<repository>
+			<id>morphia</id>
+			<url>http://morphia.googlecode.com/svn/mavenrepo/</url>
+		</repository>
+
+		<repository>
+			<id>EclipseLink</id>
+			<url>http://download.eclipse.org/rt/eclipselink/maven.repo</url>
+		</repository>
+
+	</repositories>
+
+	<pluginRepositories>
+
+		<pluginRepository>
+			<id>maven.java.net</id>
+			<name>Java.net Maven2 Repository</name>
+			<url>http://download.java.net/maven/2</url>
+		</pluginRepository>
+
+	</pluginRepositories>
+
+	<dependencyManagement>
+		<dependencies>
+
+			<!-- Arquillian BOM to run test -->
+			<dependency>
+				<groupId>org.jboss.arquillian</groupId>
+				<artifactId>arquillian-bom</artifactId>
+				<version>${arquillian.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<!-- junit test library -->
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>${junit.version}</version>
+				<scope>test</scope>
+			</dependency>
+
+			<!-- arquillian-junit integration library -->
+			<dependency>
+				<groupId>org.jboss.arquillian.junit</groupId>
+				<artifactId>arquillian-junit-container</artifactId>
+				<version>${arquillian.version}</version>
+				<scope>test</scope>
+			</dependency>
+
+			<!-- SLF4J API library -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+
+			<!-- logback implementation for SLF4J -->
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-classic</artifactId>
+				<version>${logback.version}</version>
+				<scope>test</scope>
+			</dependency>
+
+			<!-- jboss JEE6 spec API -->
+			<dependency>
+				<groupId>org.jboss.spec</groupId>
+				<artifactId>jboss-javaee-6.0</artifactId>
+				<version>${jboss.javaee6.spec.version}</version>
+				<type>pom</type>
+				<scope>provided</scope>
+			</dependency>
+
+			<!-- jboss ejb client application BOM -->
+			<dependency>
+				<groupId>org.jboss.as</groupId>
+				<artifactId>jboss-as-ejb-client-bom</artifactId>
+				<version>${jboss.as.plugin.version}</version>
+				<type>pom</type>
+			</dependency>
+
+			<!-- JEE6 RI specification API -->
+			<dependency>
+				<groupId>javax</groupId>
+				<artifactId>javaee-api</artifactId>
+				<version>${jee6.spec.version}</version>
+				<scope>provided</scope>
+			</dependency>
+
+			<!-- MongoDB Java driver -->
+			<dependency>
+				<groupId>org.mongodb</groupId>
+				<artifactId>mongo-java-driver</artifactId>
+				<version>${mongodb.java.version}</version>
+			</dependency>
+
+			<!-- MongoDB Java entity mapper -->
+			<dependency>
+				<groupId>com.google.code.morphia</groupId>
+				<artifactId>morphia</artifactId>
+				<version>${morphia.version}</version>
+			</dependency>
+
+			<!-- morphia related : Optional Jars (for certain features) but required 
+				by maven for bulding. -->
+			<dependency>
+				<groupId>cglib</groupId>
+				<artifactId>cglib-nodep</artifactId>
+				<version>2.2.2</version>
+				<type>jar</type>
+				<optional>true</optional>
+			</dependency>
+
+			<!-- morphia related : -->
+			<dependency>
+				<groupId>com.thoughtworks.proxytoys</groupId>
+				<artifactId>proxytoys</artifactId>
+				<version>1.0</version>
+				<type>jar</type>
+				<optional>true</optional>
+			</dependency>
+
+			<!-- eclipselink 2.4 core library -->
+			<dependency>
+				<groupId>org.eclipse.persistence</groupId>
+				<artifactId>eclipselink</artifactId>
+				<version>${eclipselink.version}</version>
+				<scope>compile</scope>
+				<exclusions>
+					<exclusion>
+						<artifactId>commonj.sdo</artifactId>
+						<groupId>commonj.sdo</groupId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+
+			<!-- eclipselink 2.4 jpa library -->
+			<dependency>
+				<groupId>org.eclipse.persistence</groupId>
+				<artifactId>org.eclipse.persistence.jpa</artifactId>
+				<version>${eclipselink.version}</version>
+				<scope>compile</scope>
+			</dependency>
+
+			<!-- eclipselink 2.4 nosql library -->
+			<dependency>
+				<groupId>org.eclipse.persistence</groupId>
+				<artifactId>org.eclipse.persistence.nosql</artifactId>
+				<version>${eclipselink.version}</version>
+				<scope>compile</scope>
+			</dependency>
+
+			<!-- opencsv library -->
+			<dependency>
+				<groupId>net.sf.opencsv</groupId>
+				<artifactId>opencsv</artifactId>
+				<version>2.3</version>
+			</dependency>
+
+			<!-- Apache CAMEL 2.10 core library -->
+			<dependency>
+				<groupId>org.apache.camel</groupId>
+				<artifactId>camel-core</artifactId>
+				<version>${camel.version}</version>
+			</dependency>
+
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+
+				<!-- compiler version configuration -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${compiler.plugin.version}</version>
+				</plugin>
+
+				<!-- Arquillian test plugin recommendation -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>${surefire.plugin.version}</version>
+				</plugin>
+
+				<!-- JBoss AS plugin for application deployment -->
+				<plugin>
+					<groupId>org.jboss.as.plugins</groupId>
+					<artifactId>jboss-as-maven-plugin</artifactId>
+					<version>${jboss.as.plugin.version}</version>
+					<configuration>
+						<hostname>${jboss.as.hostname}</hostname>
+						<port>${jboss.as.remote.port}</port>
+						<username>${jboss.as.admin.username}</username>
+						<password>${jboss.as.admin.password}</password>
+					</configuration>
+				</plugin>
+
+				<!-- ejb version configuration -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-ejb-plugin</artifactId>
+					<version>${ejb.plugin.version}</version>
+				</plugin>
+
+				<!-- surefire version configuration -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>${surefire.plugin.version}</version>
+				</plugin>
+
+				<!-- Glassfish AS plugin for application deployment -->
+				<plugin>
+					<groupId>org.glassfish.maven.plugin</groupId>
+					<artifactId>maven-glassfish-plugin</artifactId>
+					<version>${glassfish.as.plugin.version}</version>
+					<configuration>
+						<glassfishDirectory>${glassfish.as.home}</glassfishDirectory>
+						<user>${glassfish.as.domain.username}</user>
+						<adminPassword>${glassfish.as.domain.password}</adminPassword>
+						<autoCreate>true</autoCreate>
+						<debug>true</debug>
+						<echo>false</echo>
+						<terse>true</terse>
+						<skip>${test.int.skip}</skip>
+						<domain>
+							<name>${project.artifactId}</name>
+							<adminPort>4848</adminPort>
+							<httpPort>8080</httpPort>
+							<httpsPort>8443</httpsPort>
+							<iiopPort>3700</iiopPort>
+							<jmsPort>7676</jmsPort>
+							<reuse>false</reuse>
+						</domain>
+					</configuration>
+				</plugin>
+
+				<!-- properties plugin configuration -->
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>properties-maven-plugin</artifactId>
+					<version>${properties.plugin.version}</version>
+					<executions>
+						<execution>
+							<id>default</id>
+							<phase>initialize</phase>
+							<goals>
+								<goal>read-project-properties</goal>
+							</goals>
+							<configuration>
+								<files>
+									<file>configuration.properties</file>
+								</files>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.codehaus.mojo
+										</groupId>
+										<artifactId>
+											properties-maven-plugin
+										</artifactId>
+										<versionRange>
+											[1.0-alpha-2,)
+										</versionRange>
+										<goals>
+											<goal>
+												read-project-properties
+											</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+
+				<!-- eclipse plugin default configuration -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-eclipse-plugin</artifactId>
+					<version>2.9</version>
+					<configuration>
+						<downloadSources>true</downloadSources>
+						<downloadJavadocs>true</downloadJavadocs>
+					</configuration>
+				</plugin>
+
+			</plugins>
+		</pluginManagement>
+
+		<plugins>
+
+			<!-- JDK version configuration -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${compiler.plugin.source}</source>
+					<target>${compiler.plugin.target}</target>
+				</configuration>
+			</plugin>
+
+			<!-- Arquillian test plugin version recommended -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+			</plugin>
+
+			<!-- properties plugin configuration -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>properties-maven-plugin</artifactId>
+			</plugin>
+
+		</plugins>
+	</build>
+
+	<dependencies>
+
+		<!-- junit test library -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+
+		<!-- arquillian-junit integration library -->
+		<dependency>
+			<groupId>org.jboss.arquillian.junit</groupId>
+			<artifactId>arquillian-junit-container</artifactId>
+		</dependency>
+
+		<!-- Arquillian BOM to run test (special case) -->
+		<dependency>
+			<groupId>org.jboss.arquillian</groupId>
+			<artifactId>arquillian-bom</artifactId>
+			<version>${arquillian.version}</version>
+			<type>pom</type>
+			<scope>import</scope>
+		</dependency>
+
+		<!-- SLF4J Logging API -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+
+		<!-- logback SL4J Logging implementation -->
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+		</dependency>
+
+	</dependencies>
+
+	<organization>
+		<name>Ovalle Ingenieros</name>
+		<url>www.oving.co</url>
+	</organization>
+
+</project>

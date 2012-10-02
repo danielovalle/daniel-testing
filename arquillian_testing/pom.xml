@@ -1,164 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>oving</groupId>
+	<modelVersion>4.0.0</modelVersion>
 	<artifactId>arquillian_testing</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>arquillian_testing</name>
 	<url>http://maven.apache.org</url>
 
+	<parent>
+		<groupId>oving</groupId>
+		<artifactId>daniel_testing</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
 	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<arquillian-weld-ee-embedded.version>1.0.0.CR3</arquillian-weld-ee-embedded.version>
+		<arquillian-glassfish-ee-embedded.version>1.0.0.CR3</arquillian-glassfish-ee-embedded.version>
+		<jboss-weld.version>1.1.9.Final</jboss-weld.version>
 	</properties>
 
 	<build>
-
-		<plugins>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
-				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-				</configuration>
-			</plugin>
-
-			<!-- clip recommendation -->
-			<plugin>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.12</version>
-			</plugin>
-			<!-- clip -->
-
-		</plugins>
-
 	</build>
 
-	<!-- clip -->
-	<dependencyManagement>
-
-		<dependencies>
-
-			<dependency>
-				<groupId>org.jboss.arquillian</groupId>
-				<artifactId>arquillian-bom</artifactId>
-				<version>1.0.2.Final</version>
-				<scope>import</scope>
-				<type>pom</type>
-			</dependency>
-
-		</dependencies>
-
-	</dependencyManagement>
-	<!-- clip -->
-
 	<dependencies>
-
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.8.1</version>
-			<scope>test</scope>
-		</dependency>
-
-		<!-- clip -->
-		<dependency>
-			<groupId>org.jboss.arquillian.junit</groupId>
-			<artifactId>arquillian-junit-container</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<!-- clip -->
-
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<version>1.0.7</version>
-		</dependency>
-
 	</dependencies>
-
-	<repositories>
-		<repository>
-			<id>JBOSS_NEXUS</id>
-			<url>http://repository.jboss.org/nexus/content/groups/public</url>
-		</repository>
-	</repositories>
 
 	<profiles>
 
-		<!-- clip -->
+		<!-- Run arquillian tests on embedded jboss-weld JEE CDI implementation -->
 		<profile>
 			<id>arquillian-weld-ee-embedded</id>
-
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
-
 			<dependencies>
 
+				<!-- jboss JEE6 spec API -->
 				<dependency>
 					<groupId>org.jboss.spec</groupId>
 					<artifactId>jboss-javaee-6.0</artifactId>
-					<version>3.0.1.Final</version>
 					<type>pom</type>
-					<scope>provided</scope>
 				</dependency>
 
+				<!-- arquillian weld JEE embedded integration -->
 				<dependency>
 					<groupId>org.jboss.arquillian.container</groupId>
 					<artifactId>arquillian-weld-ee-embedded-1.1</artifactId>
-					<version>1.0.0.CR3</version>
+					<version>${arquillian-weld-ee-embedded.version}</version>
 					<scope>test</scope>
 				</dependency>
 
+				<!-- jboss-weld core API -->
 				<dependency>
 					<groupId>org.jboss.weld</groupId>
 					<artifactId>weld-core</artifactId>
-					<version>1.1.5.Final</version>
-					<scope>test</scope>
-				</dependency>
-
-				<dependency>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-simple</artifactId>
-					<version>1.6.4</version>
+					<version>${jboss-weld.version}</version>
 					<scope>test</scope>
 				</dependency>
 
 			</dependencies>
 		</profile>
-		<!-- clip -->
 
-		<!-- clip -->
+		<!-- Run arquillian tests on embedded glassfish JEE implementation -->
 		<profile>
 			<id>arquillian-glassfish-embedded</id>
 			<dependencies>
 
+				<!-- arquillian glassfish-3.1 JEE embedded integration -->
 				<dependency>
 					<groupId>org.jboss.arquillian.container</groupId>
 					<artifactId>arquillian-glassfish-embedded-3.1</artifactId>
-					<version>1.0.0.CR3</version>
+					<version>${arquillian-glassfish-ee-embedded.version}</version>
 					<scope>test</scope>
 				</dependency>
 
 				<dependency>
 					<groupId>org.glassfish.main.extras</groupId>
 					<artifactId>glassfish-embedded-all</artifactId>
-					<version>3.1.2</version>
+					<version>${glassfish-as.version}</version>
 					<scope>provided</scope>
 				</dependency>
 
 			</dependencies>
 		</profile>
-		<!-- clip -->
 
-		<!-- clip -->
+		<!-- Run arquillian tests on local jboss-as. This uses arquillian.xml file -->
 		<profile>
 			<id>arquillian-jbossas-managed</id>
 			<dependencies>
@@ -166,15 +94,13 @@
 				<dependency>
 					<groupId>org.jboss.spec</groupId>
 					<artifactId>jboss-javaee-6.0</artifactId>
-					<version>3.0.1.Final</version>
 					<type>pom</type>
-					<scope>provided</scope>
 				</dependency>
 
 				<dependency>
 					<groupId>org.jboss.as</groupId>
 					<artifactId>jboss-as-arquillian-container-managed</artifactId>
-					<version>7.1.1.Final</version>
+					<version>${jbossas.version}</version>
 					<scope>test</scope>
 				</dependency>
 
@@ -186,33 +112,33 @@
 
 			</dependencies>
 		</profile>
-		<!-- clip -->
 
-		<!-- clip -->
+		<!-- Run arquillian tests on remote jboss-as -->
 		<profile>
 			<id>arquillian-jbossas-remote</id>
 			<dependencies>
+
 				<dependency>
 					<groupId>org.jboss.spec</groupId>
 					<artifactId>jboss-javaee-6.0</artifactId>
-					<version>3.0.1.Final</version>
 					<type>pom</type>
-					<scope>provided</scope>
 				</dependency>
+
 				<dependency>
 					<groupId>org.jboss.as</groupId>
 					<artifactId>jboss-as-arquillian-container-remote</artifactId>
-					<version>7.1.1.Final</version>
+					<version>${jbossas.version}</version>
 					<scope>test</scope>
 				</dependency>
+
 				<dependency>
 					<groupId>org.jboss.arquillian.protocol</groupId>
 					<artifactId>arquillian-protocol-servlet</artifactId>
 					<scope>test</scope>
 				</dependency>
+
 			</dependencies>
 		</profile>
-		<!-- clip -->
 
 	</profiles>
 
