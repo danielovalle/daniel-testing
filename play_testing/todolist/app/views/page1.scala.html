@@ -1,0 +1,32 @@
+@(userForm: Form[User]) 
+
+@import tags._ 
+@import helper._ 
+
+@template1(title= "Test title") {
+
+<h1>Test page</h1>
+
+@notice("error") { p1 => Oops, something is
+<span style="color: @p1">wrong</span>
+}
+
+<div>
+
+	@form(action = routes.Application.tasks(), 'id -> "myForm") {
+
+		@inputText(userForm("firstName"))
+	
+		@inputText(userForm("lastName"), 'size -> 30)
+	
+		@input(userForm("firstName")) { (id, name, value, args) => 
+			<input type="date" name="@name" id="@id"@toHtmlArgs(args)> 
+		} 
+	
+	}
+</div>
+
+}
+
+
+

@@ -1,0 +1,32 @@
+@*************************************
+ * Home page.                        *
+ *                                   *
+ * @param user The user to display *
+ *************************************@
+
+@(user: User)
+
+@defining(user.getFirstName() + " " + user.getLastName()) { fullName =>
+  <div>Hello @fullName</div>
+}
+
+@*********************
+ * This is a comment *
+ *********************@
+
+<div>
+	<h1>Welcome @user.getFirstName()!</h1>
+
+	<p>@user.getLastName()</p>
+
+	<p>@user.getEmail()</p>
+
+	<h1>@user.getItems().size() items!</h1>
+	<ul>
+		@for(item <- user.getItems()) {
+		<li>@item</li> }
+	</ul>
+
+	<p>@Html(user.getFirstName())</p>
+
+</div>

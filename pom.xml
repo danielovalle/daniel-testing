@@ -65,8 +65,12 @@
 		<!-- Apache Camel EIA framework -->
 		<camel.version>2.10.1</camel.version>
 
+		<!-- Apache MyFaces core -->
+		<myfaces.core.version>2.1.11</myfaces.core.version>
+
 	</properties>
 
+	<!-- Repositories definition -->
 	<repositories>
 
 		<repository>
@@ -86,6 +90,7 @@
 
 	</repositories>
 
+	<!-- Repositories definition -->
 	<pluginRepositories>
 
 		<pluginRepository>
@@ -241,6 +246,20 @@
 				<version>${camel.version}</version>
 			</dependency>
 
+			<!-- Apache MyFaces Core library API -->
+			<dependency>
+				<groupId>org.apache.myfaces.core</groupId>
+				<artifactId>myfaces-api</artifactId>
+				<version>${myfaces.core.version}</version>
+			</dependency>
+
+			<!-- Apache MyFaces Core library IMPL -->
+			<dependency>
+				<groupId>org.apache.myfaces.core</groupId>
+				<artifactId>myfaces-impl</artifactId>
+				<version>${myfaces.core.version}</version>
+			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
 
@@ -363,7 +382,7 @@
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<ignore></ignore>
+										<ignore />
 									</action>
 								</pluginExecution>
 							</pluginExecutions>
@@ -451,7 +470,7 @@
 
 	<organization>
 		<name>Ovalle Ingenieros</name>
-		<url>www.oving.co</url>
+		<url>www.ovalleingenieros.com</url>
 	</organization>
 
 </project>

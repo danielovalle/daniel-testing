@@ -1,0 +1,13 @@
+@(title: String)(content: Html)
+<!DOCTYPE html>
+<html>
+<head>
+	<title>@title</title>
+</head>
+<body>
+	<section class="content">@content</section>
+	
+	@* Here an include sample *@
+	<section class="footer">@common.footer("")</section>
+</body>
+</html>
