@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="
+             http://xmlns.jcp.org/xml/ns/persistence
+             http://xmlns.jcp.org/xml/ns/persistence/persistence_2_0.xsd"
+             version="2.0"
+             xmlns="http://xmlns.jcp.org/xml/ns/persistence">
+
+    <persistence-unit name="mongo_db" transaction-type="RESOURCE_LOCAL">
+        <class>org.testing.entities.jpa.Person</class>
+        <properties>
+            <property name="eclipselink.target-database"
+                      value="org.eclipse.persistence.nosql.adapters.mongo.MongoPlatform"/>
+            <property name="eclipselink.nosql.connection-spec"
+                      value="org.eclipse.persistence.nosql.adapters.mongo.MongoConnectionSpec"/>
+            <!--property name="eclipselink.nosql.property.mongo.port" value="27017"/>
+            <property name="eclipselink.nosql.property.mongo.host" value="localhost"/> -->
+            <property name="eclipselink.nosql.property.mongo.db" value="mongo_jpa"/>
+            <property name="eclipselink.logging.level" value="INFO"/>
+        </properties>
+    </persistence-unit>
+
+</persistence>
