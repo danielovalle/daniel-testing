@@ -8,7 +8,10 @@
     <artifactId>testing_mongodb</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+<<<<<<< HEAD
     <!-- comment here -->
+=======
+>>>>>>> origin/master
     <dependencies>
 
         <!-- MongoDB Java Driver -->
