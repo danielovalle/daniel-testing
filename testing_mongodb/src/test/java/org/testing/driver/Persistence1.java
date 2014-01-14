@@ -1,10 +1,7 @@
 package org.testing.driver;
 
 import com.mongodb.*;
-<<<<<<< HEAD
-=======
 import org.junit.Before;
->>>>>>> origin/master
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
