@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
+<<<<<<< HEAD
   <component name="FacetManager">
     <facet type="jpa" name="JPA">
       <configuration>
@@ -12,6 +13,8 @@
       </configuration>
     </facet>
   </component>
+=======
+>>>>>>> 3996ad7801da2ae80dbb321ff09a2d5aa22855d1
   <component name="NewModuleRootManager" inherit-compiler-output="false">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />

@@ -3,7 +3,10 @@
   <component name="EntryPointsManager">
     <entry_points version="2.0" />
   </component>
+<<<<<<< HEAD
   <component name="IdProvider" IDEtalkID="F5BD8166ECA20D90809EAB868BCC44F3" />
+=======
+>>>>>>> 3996ad7801da2ae80dbb321ff09a2d5aa22855d1
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
@@ -14,5 +17,24 @@
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6" assert-keyword="true" jdk-15="true" project-jdk-name="1.7" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
+<<<<<<< HEAD
+=======
+  <component name="masterDetails">
+    <states>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.7</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+>>>>>>> 3996ad7801da2ae80dbb321ff09a2d5aa22855d1
 </project>
 
