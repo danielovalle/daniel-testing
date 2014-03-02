@@ -1,0 +1,36 @@
+<!-- Controller sample -->
+<div class="container">
+
+    <h2>View1</h2>
+
+    <h3>looping objects from Controller1</h3>
+    <br/>
+    provider name: <input type="text" ng-model="provider_name"/>
+
+    <ul>
+        <li ng-repeat="provider in providers | filter:provider_name | orderBy:'city'">
+            {{ provider.name | uppercase }} - {{ provider.city | lowercase }} - {{ provider.budget | currency:"USD$" }}
+        </li>
+    </ul>
+
+    <br/>
+
+    <div class="container">
+
+        <h3>Add new provider</h3>
+        <br/>
+        name: <input type="text" ng-model="newProvider.name"/>
+        <br/>
+        city: <input type="text" ng-model="newProvider.city"/>
+        <br/>
+        country: <input type="text" ng-model="newProvider.country"/>
+        <br/>
+        budget: <input type="text" ng-model="newProvider.budget"/>
+        <br/>
+        <button ng-click="addProvider()">Add Provider</button>
+
+    </div>
+
+    <a href="#/view2">View2</a>
+
+</div>

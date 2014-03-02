@@ -1,0 +1,15 @@
+<!-- Controller sample -->
+<div class="container">
+
+    <h2>View2</h2>
+
+    <h3>looping objects from Controller1</h3>
+    <br/>
+
+    <ul>
+        <li ng-repeat="provider in providers | filter:provider_name | orderBy:'city'">
+            {{ provider.name | uppercase }} - {{ provider.city | lowercase }} - {{ provider.budget | currency:"USD$" }}
+        </li>
+    </ul>
+
+</div>

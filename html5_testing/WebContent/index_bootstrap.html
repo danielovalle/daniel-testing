@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" ng-app>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap 101 Template</title>
+
+    <!-- Bootstrap -->
+    <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body>
+
+    <div class="container">
+
+        firstName: <input type="text" ng-model="fname" /> {{ fname }}
+        lastName: <input type="text" ng-model="lname" /> {{ lname }}
+        <h1>Hello, world! {{ lname + ',' + fname }}</h1>
+
+    </div>
+
+    <!-- loop initialized attribute -->
+    <div class="container" ng-init="names=['one', 'two', 'three']">
+
+        <h3>looping strings</h3>
+        <ul>
+            <li ng-repeat="n in names"> {{ n }}</li>
+        </ul>
+
+    </div>
+
+    <!-- looping objects and using filters -->
+    <div class="container" ng-init="customers=[
+    {name:'Daniel', city:'Quito', country:'Ecuador', budget:150},
+    {name:'Constanza', city:'Guayaquil', country:'Ecuador'},
+    {name:'Juan', city:'Bogota', country:'Colombia'}
+    ]">
+
+        <h3>looping objects and filter</h3>
+        <br/>
+        customer name: <input type="text" ng-model="customer_name" />
+
+        <ul>
+            <li ng-repeat="customer in customers | filter:customer_name | orderBy:'city'">
+                {{ customer.name | uppercase }} - {{ customer.city | lowercase }} - {{ customer.budget | currency:"USD$" }}
+            </li>
+        </ul>
+
+    </div>
+
+    <!-- Controller sample -->
+    <div class="container" ng-controller="Controller1">
+
+        <h3>looping objects from Controller1</h3>
+        <br/>
+        provider name: <input type="text" ng-model="provider_name" />
+
+        <ul>
+            <li ng-repeat="provider in providers | filter:provider_name | orderBy:'city'">
+                {{ provider.name | uppercase }} - {{ provider.city | lowercase }} - {{ provider.budget | currency:"USD$" }}
+            </li>
+        </ul>
+
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- angularjs -->
+    <script src="../bower_components/angular/angular.min.js"></script>
+
+    <script>
+
+        // define a controller and add a property to $scope
+        function Controller1($scope) {
+
+            $scope.providers = [
+                {name:'Jorge', city:'Miami', country:'USA', budget:350},
+                {name:'Gonzalo', city:'Anapoima', country:'Colombia', budget:250},
+                {name:'Myriam', city:'Bogota', country:'Colombia', budget:150}
+            ]
+        }
+
+    </script>
+
+</body>
+</html>
